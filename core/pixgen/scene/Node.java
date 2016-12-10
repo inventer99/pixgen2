@@ -127,4 +127,15 @@ public class Node implements Updateable, Renderable
 		
 		return null;
 	}
+	
+	public ArrayList<Component> getComponents(Class<? extends Component> type)
+	{
+		ArrayList<Component> found = new ArrayList<Component>();
+		
+		for(Component comp : components)
+			if(type.isInstance(comp))
+				found.add(comp);
+		
+		return found;
+	}
 }

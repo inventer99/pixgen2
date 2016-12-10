@@ -4,7 +4,8 @@ import pixgen.util.Updateable;
 
 public class Animation extends Component implements Updateable
 {
-	private int texCount;
+	private int texStart;
+	private int texEnd;
 	private int index;
 	
 	private float frameRate;
@@ -12,12 +13,15 @@ public class Animation extends Component implements Updateable
 	
 	private boolean animating;
 	
-	public Animation(float frameRate, int texCount)
+	public Animation(float frameRate, int texStart, int texEnd)
 	{
 		this.frameRate = frameRate;
-		this.texCount = texCount;
+		this.texStart = texStart;
+		this.texEnd = texEnd;
 		
-		animating = true;
+		this.index = this.texStart;
+		
+		this.animating = false;
 	}
 	
 	@Override
@@ -34,8 +38,8 @@ public class Animation extends Component implements Updateable
 				index++;
 			}
 			
-			if(index > texCount - 1)
-				index = 0;
+			if(index > texEnd)
+				index = texStart;
 		}
 	}
 
@@ -46,6 +50,10 @@ public class Animation extends Component implements Updateable
 	
 	public void play()
 	{
+		if(parent != null)
+			for(Component ani : parent.getComponents(Animation.class))
+				((Animation) ani).stop();
+		
 		animating = true;
 	}
 	
@@ -53,11 +61,16 @@ public class Animation extends Component implements Updateable
 	{
 		animating = false;
 		
-		index = 0;
+		index = texStart;
 	}
 	
 	public int getIndex() 
 	{
 		return index;
+	}
+	
+	public boolean isPlaying()
+	{
+		return animating;
 	}
 }

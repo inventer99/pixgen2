@@ -13,10 +13,13 @@ public class Entity extends Node
 {
 	protected Vector renderOffset;
 	
+	private int index;
+	
 	@Override
 	public void onInit()
 	{
 		renderOffset = new Vector();
+		index = 0;
 	}
 
 	@Override
@@ -32,12 +35,17 @@ public class Entity extends Node
 		g.scale(localScale.x, localScale.y);
 		
 		Texture texture = (Texture) getComponent(Texture.class);
-		Animation animation = (Animation) getComponent(Animation.class);
+		Animation animation = null;
+		for(Component comp : getComponents(Animation.class))
+		{
+			Animation a = (Animation) comp;
+			if(a.isPlaying())
+				animation = a;
+		}
+			
 		
 		if(texture != null)
 		{
-			int index = 0;
-			
 			if(animation != null)
 				index = animation.getIndex();
 				

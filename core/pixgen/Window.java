@@ -1,5 +1,6 @@
 package pixgen;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
@@ -64,12 +65,19 @@ public class Window extends JFrame
 				Graphics2D g2d = (Graphics2D) g;
 				super.paintComponent(g2d);
 				
+				float scale = (float) config.getInt("window.height") / (float) config.getInt("render.height");
+				float offset = (config.getInt("window.width") - config.getInt("render.width") * scale) / 2;
+				
 				g2d.clearRect(0, 0,
 						config.getInt("window.width"),
 						config.getInt("window.height"));
-				g2d.drawImage(Window.this.target, 0, 0,
+				g2d.setColor(Color.BLACK);
+				g2d.fillRect(0, 0,
 						config.getInt("window.width"),
-						config.getInt("window.height"), null);
+						config.getInt("window.height"));
+				g2d.drawImage(Window.this.target, (int) offset, 0,
+						(int) (config.getInt("render.width") * scale),
+						(int) (config.getInt("render.height") * scale), null);
 			}
 		});
 		

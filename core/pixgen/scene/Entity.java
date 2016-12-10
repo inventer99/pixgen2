@@ -13,13 +13,13 @@ public class Entity extends Node
 {
 	protected Vector renderOffset;
 	
-	private int index;
+	protected int textureIndex;
 	
 	@Override
 	public void onInit()
 	{
 		renderOffset = new Vector();
-		index = 0;
+		textureIndex = 0;
 	}
 
 	@Override
@@ -47,15 +47,15 @@ public class Entity extends Node
 		if(texture != null)
 		{
 			if(animation != null)
-				index = animation.getIndex();
+				textureIndex = animation.getIndex();
 				
-			float scaleHeight = (float) texture.getIndex(index).getHeight(null) / (float) texture.getIndex(index).getWidth(null);
+			float scaleHeight = (float) texture.getIndex(textureIndex).getHeight(null) / (float) texture.getIndex(textureIndex).getWidth(null);
 			
 			float drawX = (renderOffset.x * PixGen.getCamera().unit) + (-(PixGen.getCamera().unit / 2));
 			float drawY = (-renderOffset.y * PixGen.getCamera().unit) + (-(PixGen.getCamera().unit * scaleHeight / 2));
 			
 			g.drawImage(
-					texture.getIndex(index),
+					texture.getIndex(textureIndex),
 					(int) drawX,
 					(int) drawY,
 					(int) PixGen.getCamera().unit,

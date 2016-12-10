@@ -39,10 +39,12 @@ public class PhysicsManager implements Updateable
 				
 				if(collision != null)
 				{
+					collision.with = col2.getParent();
 					Node node1 = col1.getParent();
 					if(node1 instanceof PhysicsListener)
 						((PhysicsListener) node1).collided(collision);
 					
+					collision.with = col1.getParent();
 					Node node2 = col2.getParent();
 					if(node2 instanceof PhysicsListener)
 						((PhysicsListener) node2).collided(collision);

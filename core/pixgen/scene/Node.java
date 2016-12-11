@@ -3,7 +3,7 @@ package pixgen.scene;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.ListIterator;
 
 import pixgen.PixGen;
 import pixgen.comp.Component;
@@ -15,7 +15,7 @@ public class Node implements Updateable, Renderable
 {
 	protected Node parent;
 	protected ArrayList<Node> children;
-	private Iterator<Node> iteratee;
+	private ListIterator<Node> iteratee;
 	
 	protected ArrayList<Component> components;
 	
@@ -49,7 +49,7 @@ public class Node implements Updateable, Renderable
 		
 		onUpdate(delta);
 		
-		Iterator<Node> iterator = children.iterator();
+		ListIterator<Node> iterator = children.listIterator();
 		while(iterator.hasNext())
 		{
 			iteratee = iterator;
@@ -85,7 +85,10 @@ public class Node implements Updateable, Renderable
 	public void addChild(Node child)
 	{
 		child.parent = this;
-		children.add(child);
+		if(iteratee != null)
+			iteratee.add(child);
+		else
+			children.add(child);
 	}
 	
 	public void removeChild(Node child)

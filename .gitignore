@@ -1,1 +1,4 @@
 /bin/
+/coreold/
+/docs/
+.DS_Store

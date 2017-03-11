@@ -6,8 +6,11 @@ public class Transformation
 	{
 		double d = Math.toRadians(i);
 		
-		v.x = ((float) ((v.x * Math.cos(d)) - (v.y * Math.sin(d))));
-		v.y = ((float) ((v.x * Math.sin(d)) + (v.y * Math.cos(d))));
+		float nx = ((float) ((v.x * Math.cos(d)) - (v.y * Math.sin(d))));
+		float ny = ((float) ((v.x * Math.sin(d)) + (v.y * Math.cos(d))));
+		
+		v.x = nx;
+		v.y = ny;
 		
 		return v;
 	}
@@ -19,8 +22,11 @@ public class Transformation
 		v.x -= p.x;
 		v.y -= p.y;
 		
-		v.x = ((float) ((v.x * Math.cos(d)) - (v.y * Math.sin(d))));
-		v.y = ((float) ((v.x * Math.sin(d)) + (v.y * Math.cos(d))));
+		float nx = ((float) ((v.x * Math.cos(d)) - (v.y * Math.sin(d))));
+		float ny = ((float) ((v.x * Math.sin(d)) + (v.y * Math.cos(d))));
+		
+		v.x = nx;
+		v.y = ny;
 		
 		v.x += p.x;
 		v.y += p.y;
